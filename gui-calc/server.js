@@ -13,7 +13,7 @@ app.post('/evaluate', (req, res) => {
   exec(`"${executablePath}" "${expression}"`, (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
-      return res.status(500).send(stderr);
+      return res.send(stdout.trim());
     }
     res.send(stdout.trim());
   });

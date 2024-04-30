@@ -13,7 +13,9 @@ function App() {
   const handleCalculate = async () => {
     try {
       const response = await axios.post('http://localhost:3001/evaluate', { expression: input });
-      setOutput(response.data);
+      const output=response.data;
+      let data = output.replace("Invalid expression!","");
+      setOutput(data);
     } catch (error) {
       console.error('Error calculating expression:', error);
       setOutput('Error evaluating expression');
