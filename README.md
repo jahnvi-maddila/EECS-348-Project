@@ -21,7 +21,7 @@ To use the GUI Calculator, follow these steps:
 1. Navigate to the `gui-calc` directory.
 2. Run `npm install` to install the dependencies and modules.
 3. Install the necessary server modules by running:
-   `npm install express axioms cors`
+   `npm install express axios cors`
 4. Open two terminals in the same directory.
 5. In the first terminal, run:
    `npm start`
