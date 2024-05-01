@@ -22,13 +22,17 @@ function App() {
     }
   };
 
+
   return (
     <div className="app">
+    <header className="app-header">
+        Boolean Calculator
+    </header>
     <input
       type="text"
       value={input}
       onChange={(e) => setInput(e.target.value)}
-      placeholder="Input goes here"
+      placeholder="Input your expression here"
       className="input-box"
     />
     <div className="button-grid">
@@ -43,14 +47,19 @@ function App() {
       <button onClick={() => handleInput(')')}>)</button>
       <button onClick={handleCalculate}>Calculate</button>
     </div>
+  
     <input
       type="text"
       value={output}
       readOnly
-      placeholder="Output shows here"
+      placeholder="Output will be displayed here"
       className="output-box"
     />
+    <footer classname = "footer">
+      <p>RAND Corporated</p>
+    </footer>
   </div>
+  
   );
 }
 
