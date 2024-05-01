@@ -28,6 +28,7 @@ function App() {
     <header className="app-header">
         Boolean Calculator
     </header>
+    <a className="about" href="/about.html">About</a>
     <input
       type="text"
       value={input}
@@ -35,17 +36,21 @@ function App() {
       placeholder="Input your expression here"
       className="input-box"
     />
+    {input && <button className='buttonininput' onClick={() => setInput('')}>Clear</button>}
+    
+    
+
     <div className="button-grid">
-      <button onClick={() => handleInput('T')}>T</button>
-      <button onClick={() => handleInput('F')}>F</button>
-      <button onClick={() => handleInput('!')}>!</button>
-      <button onClick={() => handleInput('@')}>@</button>
-      <button onClick={() => handleInput('$')}>$</button>
-      <button onClick={() => handleInput('&')}>&</button>
-      <button onClick={() => handleInput('|')}>|</button>
-      <button onClick={() => handleInput('(')}>(</button>
-      <button onClick={() => handleInput(')')}>)</button>
-      <button onClick={handleCalculate}>Calculate</button>
+      <button style={{backgroundColor: 'white'}} onClick={() => handleInput('T')}>T</button>
+      <button style={{backgroundColor: 'white'}} onClick={() => handleInput('F')}>F</button>
+      <button style={{backgroundColor: 'white'}} onClick={() => handleInput('!')}>!</button>
+      <button style={{backgroundColor: 'white'}} onClick={() => handleInput('@')}>@</button>
+      <button style={{backgroundColor: 'white'}} onClick={() => handleInput('$')}>$</button>
+      <button style={{backgroundColor: 'white'}} onClick={() => handleInput('&')}>&</button>
+      <button style={{backgroundColor: 'white'}} onClick={() => handleInput('|')}>|</button>
+      <button style={{backgroundColor: 'white'}} onClick={() => handleInput('(')}>(</button>
+      <button style={{backgroundColor: 'white'}} onClick={() => handleInput(')')}>)</button>
+      <button style={{backgroundColor: 'white'}} onClick={handleCalculate}>Calculate</button>
     </div>
   
     <input
