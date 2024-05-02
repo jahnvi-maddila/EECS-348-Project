@@ -10,15 +10,6 @@
   margin: 0;
   font-family: Arial, sans-serif;
 }
-.input-box {
-  width: 75%;
-  margin-right: 60px;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid rgb(79, 243, 164);
-  border-radius: 10px;
-  margin-bottom: 30px;
-}
 
 .output-box {
   width: 80%;
@@ -66,6 +57,7 @@ footer{
   position: fixed;
   top:0;
   left: 0;
+  margin-top: -30px;
 }
 
 
@@ -87,13 +79,27 @@ footer{
   color: rgb(50, 193, 124);
 }
 
+.inputwrapper {
+  position: relative;
+  width: 80%; 
+  margin: 20px;
+}
+
+.input-box {
+  width: 100%;
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid rgb(79, 243, 164);
+}
+
 .buttonininput {
   position: absolute;
-  top: 26%;
-  right: 240px;
+  top: 50%;
+  right: 10px; 
   transform: translateY(-50%);
   background-color: rgb(198, 198, 198);
+  border: none;
   background: none;
-  border: 1px;
   width: 50px;
 }

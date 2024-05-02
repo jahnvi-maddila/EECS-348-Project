@@ -29,15 +29,16 @@ function App() {
         Boolean Calculator
     </header>
     <a className="about" href="/about.html">About</a>
-    <input
-      type="text"
-      value={input}
-      onChange={(e) => setInput(e.target.value)}
-      placeholder="Input your expression here"
-      className="input-box"
-    />
-    {input && <button className='buttonininput' onClick={() => setInput('')}>Clear</button>}
-    
+    <div className='inputwrapper'>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Input your expression here"
+        className="input-box"
+      />
+      {input && <button className='buttonininput' onClick={() => setInput('')}>Clear</button>}
+    </div>
     
 
     <div className="button-grid">
