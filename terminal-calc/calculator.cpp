@@ -4,11 +4,12 @@
 
 using namespace std;
 
+// Function to determine the precedence of logical operators
 int precedence(char c)
 {
     switch (c)
     {
-    case '!':
+    case '!': // Highest precedence
         return 5;
     case '&':
         return 4;
@@ -16,50 +17,57 @@ int precedence(char c)
         return 3;
     case '$':
         return 2;
-    case '|':
+    case '|': // Lowest precedence
         return 1;
     default:
-        return -1;
+        return -1; // Not an operator
     }
 }
 
+// Function to check if a character is a logical operator
 bool isOperator(char c)
 {
     return c == '!' || c == '&' || c == '@' || c == '$' || c == '|';
 }
 
+// Function to check if a character is an operand (True or False)
 bool isOperand(char c)
 {
     return c == 'T' || c == 'F' || c == 't' || c == 'f';
 }
 
+// Function to convert an infix expression to postfix notation using a stack
 string infixToPostfix(string expression)
 {
     stack<char> postfixStack;
     string postfix = "";
 
+    // Iterate through each character in the input expression
     for (char ch : expression)
     {
         if (isOperand(ch))
         {
+            // Directly add operands to the postfix expression
             postfix += ch;
         }
         else if (ch == '(')
         {
+            // Push '(' onto stack to handle precedence
             postfixStack.push(ch);
         }
         else if (ch == ')')
         {
+            // Pop stack to the corresponding '(' and add to postfix expression
             while (!postfixStack.empty() && postfixStack.top() != '(')
             {
                 postfix += postfixStack.top();
                 postfixStack.pop();
             }
-            if (!postfixStack.empty())
-                postfixStack.pop(); // Pop the '(' from the stack
+            postfixStack.pop(); // Remove '(' from stack
         }
         else if (isOperator(ch))
         {
+            // Pop higher or equal precedence operators from the stack before pushing current operator
             while (!postfixStack.empty() && precedence(ch) <= precedence(postfixStack.top()))
             {
                 postfix += postfixStack.top();
@@ -69,6 +77,7 @@ string infixToPostfix(string expression)
         }
     }
 
+    // Pop all remaining operators in the stack
     while (!postfixStack.empty())
     {
         postfix += postfixStack.top();
@@ -78,33 +87,41 @@ string infixToPostfix(string expression)
     return postfix;
 }
 
+// Function to evaluate a postfix logical expression
 bool evaluation(string postfix)
 {
     stack<bool> evalStack;
+
+    // Evaluate the postfix expression using a stack
     for (char ch : postfix)
     {
         if (isOperand(ch))
         {
+            // Convert operand to boolean and push to stack
             evalStack.push(ch == 'T' || ch == 't');
         }
         else if (isOperator(ch))
         {
-            bool op1 = false;
-            if (!evalStack.empty())
+            bool op1 = false, op2 = false;
+
+            // Unary operator '!'
+            if (ch == '!')
             {
                 op1 = evalStack.top();
                 evalStack.pop();
-            }
-            if (ch == '!')
-            {
                 evalStack.push(!op1);
             }
             else
             {
-                bool op2 = false;
+                // Binary operators
                 if (!evalStack.empty())
                 {
                     op2 = evalStack.top();
+                    evalStack.pop();
+                }
+                if (!evalStack.empty())
+                {
+                    op1 = evalStack.top();
                     evalStack.pop();
                 }
                 switch (ch)
@@ -125,14 +142,15 @@ bool evaluation(string postfix)
             }
         }
     }
-    return evalStack.top();
+    return evalStack.top(); // Return the result of the expression
 }
 
+// Function to validate the syntactical correctness of the expression
 bool validateExpression(const string &expression)
 {
     stack<char> validStack;
-    bool lastWasOp = true;     // Assume starting with an operator or '(' is valid
-    bool lastWasClose = false; // to handle cases like () or T()
+    bool lastWasOp = true;     // Start assuming an operator or '(' is valid
+    bool lastWasClose = false; // Track if the last character was a closing parenthesis
 
     for (char c : expression)
     {
@@ -141,6 +159,7 @@ bool validateExpression(const string &expression)
 
         if (isOperand(c))
         {
+            // Check for consecutive operands without an operator
             if (!lastWasOp && !lastWasClose)
             {
                 cout << "Error: Two consecutive operands or invalid placement ('" << c << "')" << endl;
@@ -151,8 +170,9 @@ bool validateExpression(const string &expression)
         }
         else if (isOperator(c))
         {
+            // Check for misplaced operators
             if (lastWasOp && c != '!')
-            { // allow unary '!' after operators or open parenthesis
+            {
                 cout << "Error: Misplaced operator '" << c << "'" << endl;
                 return false;
             }
@@ -161,17 +181,19 @@ bool validateExpression(const string &expression)
         }
         else if (c == '(')
         {
+            // Check for misplaced '('
             if (!lastWasOp && !validStack.empty())
             {
                 cout << "Error: Misplaced '(' after operand" << endl;
                 return false;
             }
             validStack.push(c);
-            lastWasOp = true; // After '(', expecting an operand or unary operator
+            lastWasOp = true;
             lastWasClose = false;
         }
         else if (c == ')')
         {
+            // Check for mismatched ')'
             if (validStack.empty() || validStack.top() != '(' || lastWasOp)
             {
                 cout << "Error: Mismatched or misplaced ')'" << endl;
@@ -179,16 +201,18 @@ bool validateExpression(const string &expression)
             }
             validStack.pop();
             lastWasOp = false;
-            lastWasClose = true; // just closed a pair, expecting operator or closing another pair
+            lastWasClose = true;
         }
         else
         {
+            // Handle unknown characters
             cout << "Error: Unknown character '" << c << "'" << endl;
             return false;
         }
     }
 
-    if (!validStack.empty() || lastWasOp && !lastWasClose)
+    // Final check for unmatched parentheses or incomplete expressions
+    if (!validStack.empty() || (lastWasOp && !lastWasClose))
     {
         cout << "Error: Mismatched parentheses or incomplete expression" << endl;
         return false;
@@ -203,6 +227,7 @@ int main()
     string expression;
     getline(cin, expression);
 
+    // Validate, convert, and evaluate the expression
     if (!validateExpression(expression))
     {
         cout << "Invalid expression!" << endl;
