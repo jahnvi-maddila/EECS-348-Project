@@ -1,8 +1,10 @@
 # EECS-348-Project
+
 ## Boolean Calculator
+
 ## Team Members: Jahnvi Maddila, Tej Gumaste, Jay Patel, Shivansh Shrivas, Vamsi Doddapaneni
 
-------------------------------
+---
 
 ## Usage
 
@@ -10,9 +12,9 @@
 
 To use the Terminal Calculator, follow these steps:
 
-1. Navigate to the `shivansh-src` directory.
-2. Compile `calculator.cpp`.
-3. Run the respective `.exe` code.
+1. Navigate to the `terminal-calc` directory.
+2. In the terminal, run `./calculator`.
+3. Input your expression.
 
 ### GUI Calculator
 
@@ -30,6 +32,3 @@ To use the GUI Calculator, follow these steps:
    `node server.js`
    This will start the backend.
 7. Navigate to the localhost shown in the first terminal to use the calculator.
-
-
-
